@@ -1,0 +1,13 @@
+1. Điều gì xảy ra khi người dùng chọn "Cancel"?
+    - Trong phương thức JOptionPane.showConfirmDialog, giá trị trả về là một số nguyên.
+        + Nếu người dùng chọn Cancel, giá trị của biến option sẽ là JOptionPane.CANCEL_OPTION, thường có giá trị là 2.
+    - Trong đoạn code ví dụ ở Figure 28, chương trình đang so sánh option == JOptionPane.YES_OPTION. Vì Cancel không phải là Yes, nên biểu thức này sẽ trả về false.
+    --> Kết quả là hộp thoại showMessageDialog tiếp theo sẽ hiển thị thông báo: "You've chosen: No".
+
+2. Cách tùy chỉnh các lựa chọn
+    - Để thay đổi các nút bấm từ mặc định (Yes/No/Cancel) thành các lựa chọn riêng của bạn (như "I do" và "I don't"), bạn cần sử dụng một phiên bản đầy đủ hơn của showConfirmDialog.
+    - Bạn có thể chỉ định rõ kiểu chỉ có 2 nút: Bạn sử dụng phương thức showOptionDialog. Phương thức này cho phép bạn truyền vào một mảng các chuỗi (String[]) để làm tên các nút.
+VÍ DỤ:
+String[] options = {"I do", "I don't"};
+        int option = JOptionPane.showOptionDialog(null, "Do you want to change to the first class ticket?", "Custom Option", JOptionPane.DEFAULT_OPTION, JOptionPane.PLAIN_MESSAGE, null,options, options[0]);
+        JOptionPane.showMessageDialog(null, "You've chosen: " + (option == 0 ? "I do" : "I don't"));
