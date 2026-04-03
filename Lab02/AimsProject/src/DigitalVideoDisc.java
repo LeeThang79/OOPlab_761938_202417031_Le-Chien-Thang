@@ -24,4 +24,11 @@ public class DigitalVideoDisc {
     public float getCost() {
         return cost;
     }
+
+    public DigitalVideoDisc(String title, String category, float cost) {
+        super();
+        this.category = category;
+        this.title = title;
+        this.cost = cost;
+    }
 }
