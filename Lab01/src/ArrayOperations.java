@@ -8,7 +8,7 @@ public class ArrayOperations {
         int n = sc.nextInt();
         int[] my_array = new int[n];
         System.out.println("Enter the elements of the array:");
-        for(int i = 0; i < n; i++) {
+        for (int i = 0; i < n; i++) {
             my_array[i] = sc.nextInt();
         }
         System.out.println("Original array: " + Arrays.toString(my_array));
