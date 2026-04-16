@@ -1,3 +1,5 @@
+package hust.soict.hedspi.lab01;
+
 import java.util.Scanner;
 
 public class DaysInMonth {
