@@ -36,4 +36,21 @@ public class Store {
         }
         System.out.println("***************************************************");
     }
+
+    public void displayItems() {
+        System.out.println("***********************STORE***********************");
+        for (Media m : itemsInStore) {
+            System.out.println(m.toString());
+        }
+        System.out.println("***************************************************");
+    }
+
+    public Media searchByTitle(String title) {
+        for (Media m : itemsInStore) {
+            if (m.getTitle().equalsIgnoreCase(title)) {
+                return m;
+            }
+        }
+        return null;
+    }
 }
