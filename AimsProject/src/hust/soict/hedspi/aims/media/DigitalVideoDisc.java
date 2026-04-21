@@ -33,14 +33,6 @@ public class DigitalVideoDisc extends Disc implements Playable {
                 + this.getDirector() + " - " + this.getLength() + ": " + this.getCost() + " $";
     }
 
-    public boolean isMatch(String title) {
-        // Tránh lỗi nếu title bị bỏ trống (null)
-        if (this.getTitle() == null || title == null) {
-            return false;
-        }
-        // Chuyển cả 2 chuỗi về chữ thường và kiểm tra xem có chứa từ khóa không
-        return this.getTitle().toLowerCase().contains(title.toLowerCase());
-    }
     public void play() {
         System.out.println("Playing DVD: " + this.getTitle());
         System.out.println("DVD length: " + this.getLength());
