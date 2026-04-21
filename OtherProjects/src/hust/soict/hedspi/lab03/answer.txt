@@ -1,0 +1,34 @@
+1. Which classes are aggregates of other classes? Checking all constructors of whole classes if they initialize for their parts?
+Trả lời: Các lớp đóng vai trò là "Tổng thể" (Aggregate classes) bao gồm: Cart, Store, và CompactDisc.
+         Để đoạn code chuẩn xác, bạn cần kiểm tra Constructor của 3 lớp này và đảm bảo rằng bạn đã sử dụng từ khóa
+         new để khởi tạo bộ nhớ cho các danh sách thành phần bên trong nó.
+
+2. If the passing object is not an instance of Media, what happens? (Khi ép kiểu trong hàm equals)
+Trả lời: Nếu đối tượng truyền vào không phải là Media (ví dụ truyền vào một String hoặc Integer) mà bạn vẫn cố tình
+         ép kiểu nó (Media) obj, chương trình sẽ lập tức báo lỗi ClassCastException (Lỗi ép kiểu sai) và bị dừng (crash).
+         Để ngăn chặn điều này, bạn luôn phải dùng lệnh kiểm tra if (!(obj instanceof Media)) trước khi thực hiện ép kiểu.
+
+3. What class should implement the Comparable interface?
+Trả lời: Lớp cha Media nên là lớp implement giao diện Comparable<Media>.
+         Lý do là vì chúng ta đang muốn sắp xếp một giỏ hàng chứa nhiều loại phương tiện khác nhau,
+         nhưng chúng đều được quản lý chung dưới kiểu dữ liệu là danh sách Media (ArrayList<Media>).
+
+4. In those classes, how should you implement the compareTo() method to reflect the ordering that we want?
+Trả lời: Ta sẽ ghi đè (Override) hàm public int compareTo(Media other) ở trong lớp Media.
+         Bên trong thân hàm, ta sẽ viết logic để so sánh thuộc tính của đối tượng hiện tại (this)
+         với đối tượng được truyền vào (other).
+
+5. Can we have two ordering rules of the item (by title then cost and by cost then title) if we use this Comparable interface approach?
+Trả lời: Không. Đây là điểm hạn chế của Comparable. Giao diện này tạo ra sắp xếp tự nhiên
+         và mỗi class chỉ có thể có duy nhất một hàm compareTo().
+         Do đó, ta không thể định nghĩa 2 hay nhiều quy tắc sắp xếp song song được.
+
+6. Suppose the DVDs have a different ordering rule from the other media types, that is by title, then decreasing length, then cost. How would you modify your code to allow this?
+Trả lời:
+    - Vẫn sử dụng Comparable, ta sẽ lợi dụng tính Đa hình bằng cách vào lớp con DigitalVideoDisc và Override
+        lại hàm compareTo(Media other) của lớp cha.
+    - Cách làm:
+            + Trong hàm ghi đè, ta dùng instanceof kiểm tra đối tượng other.Nếu other đúng là một DVD: Ta ép kiểu sang DVD
+                và thực hiện tuần tự logic so sánh: Title $\rightarrow$ Length (giảm dần) $\rightarrow$ Cost.
+            + Nếu other KHÔNG PHẢI là DVD (mà là Sách/CD): Ta trả lại quyền quyết định cho luật chung của lớp cha bằng
+                lệnh return super.compareTo(other);.
