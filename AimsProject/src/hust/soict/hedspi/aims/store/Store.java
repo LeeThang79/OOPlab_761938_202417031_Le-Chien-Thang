@@ -4,7 +4,11 @@ import hust.soict.hedspi.aims.media.Media;
 import java.util.ArrayList;
 
 public class Store {
-    private ArrayList<Media> itemsInStore = new ArrayList<Media>();
+    private ArrayList<Media> itemsInStore;
+
+    public Store() {
+        this.itemsInStore = new ArrayList<Media>();
+    }
 
     public void addMedia(Media media) {
         if (!itemsInStore.contains(media)) {
