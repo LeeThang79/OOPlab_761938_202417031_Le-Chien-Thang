@@ -4,7 +4,11 @@ import hust.soict.hedspi.aims.media.Media;
 import java.util.ArrayList;
 
 public class Cart {
-    private ArrayList<Media> itemsOrdered = new ArrayList<Media>();
+    private ArrayList<Media> itemsOrdered;
+
+    public Cart() {
+        this.itemsOrdered = new ArrayList<Media>();
+    }
 
     public void addMedia(Media mediaName) {
         if (!itemsOrdered.contains(mediaName)) {
