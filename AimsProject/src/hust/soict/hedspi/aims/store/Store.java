@@ -1,37 +1,35 @@
 package hust.soict.hedspi.aims.store;
 
-import hust.soict.hedspi.aims.media.DigitalVideoDisc;
+import hust.soict.hedspi.aims.media.Media;
+import java.util.ArrayList;
 
 public class Store {
-    private DigitalVideoDisc[] itemsInStore = new DigitalVideoDisc[1000];
-    private int qtyInStore = 0;
+    private ArrayList<Media> itemsInStore = new ArrayList<Media>();
 
-    public void addDVD (DigitalVideoDisc dvd) {
-        if (qtyInStore < itemsInStore.length) {
-            itemsInStore[qtyInStore] = dvd;
-            qtyInStore++;
-            System.out.println("System has added " + dvd.getTitle() + " in the store");
-        }
-        else{
-            System.out.println("Store has been full, can't add any more disc");
+    public void addMedia(Media media) {
+        if (!itemsInStore.contains(media)) {
+            itemsInStore.add(media);
+            System.out.println("Added " + media.getTitle() + " to the store.");
+        } else {
+            System.out.println(media.getTitle() + " has already existed in the store.");
         }
     }
 
-    public void removeDVD(DigitalVideoDisc dvd) {
-        boolean found = false;
-        for(int i = 0; i < qtyInStore; i++) {
-            if(itemsInStore[i]==dvd) {
-                found = true;
-                for(int j = i; j < qtyInStore - 1; j++) {
-                    itemsInStore[j] = itemsInStore[j+1];
-                }
-                itemsInStore[qtyInStore-1] = null;
-                qtyInStore--;
-                System.out.println("System has removed " + dvd.getTitle() + " from the store");
-            }
+    public void removeMedia(Media media) {
+        if (itemsInStore.contains(media)) {
+            itemsInStore.remove(media);
+            System.out.println("Removed " + media.getTitle() + " from the store.");
+        } else {
+            System.out.println(media.getTitle() + " is not in the store.");
         }
-        if(!found) {
-            System.out.println("No disc has been found");
+    }
+
+    public void printStore() {
+        System.out.println("***********************STORE***********************");
+        System.out.println("Items in store:");
+        for (int i = 0; i < itemsInStore.size(); i++) {
+            System.out.println((i + 1) + ". " + itemsInStore.get(i).toString());
         }
+        System.out.println("***************************************************");
     }
 }
