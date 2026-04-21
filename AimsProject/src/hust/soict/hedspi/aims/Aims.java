@@ -1,30 +1,34 @@
 package hust.soict.hedspi.aims;
 
-import hust.soict.hedspi.aims.cart.Cart;
+import hust.soict.hedspi.aims.media.Book;
+import hust.soict.hedspi.aims.media.CompactDisc;
 import hust.soict.hedspi.aims.media.DigitalVideoDisc;
+import hust.soict.hedspi.aims.media.Media;
+import java.util.ArrayList;
+import java.util.List;
 
 public class Aims {
     public static void main(String[] args) {
-        // Create a new cart
-        Cart anOrder = new Cart();
+            // 1. Tạo một danh sách kiểu Media (Lớp cha)
+            List<Media> mediae = new ArrayList<Media>();
 
-        // New dvd object and add it to the cart
-        DigitalVideoDisc dvd1 = new DigitalVideoDisc("The Lion King", "Animation", "Roger Allers", 87, 19.95f);
-        anOrder.addDigitalVideoDisc(dvd1);
+            // 2. Tạo các đối tượng cụ thể (Sách, CD, DVD)
+            // Lưu ý: Các tham số truyền vào phải khớp với Constructor bạn đã viết
+            Media dvd = new DigitalVideoDisc("The Lion King", "Animation", "Roger Allers", 87, 19.95f);
+            Media book = new Book("Java Programming", "Education", 29.99f);
+            Media cd = new CompactDisc("Greatest Hits", "Music", "Various Artists", "Producer A", 45, 15.0f);
 
-        DigitalVideoDisc dvd2 = new DigitalVideoDisc("Star Wars", "Science Fiction", "George Lucas", 87, 24.95f);
-        anOrder.addDigitalVideoDisc(dvd2);
+            // 3. Thêm tất cả vào danh sách Mediae
+            mediae.add(dvd);
+            mediae.add(book);
+            mediae.add(cd);
 
-        DigitalVideoDisc dvd3 = new DigitalVideoDisc("Star Wars", "Science Fiction", "George Lucas", 87, 24.95f);
-        anOrder.addDigitalVideoDisc(dvd3);
-
-        // total cost
-        System.out.print("Total Cost is: ");
-        System.out.println(anOrder.totalCost());
-
-        // delete cart
-        anOrder.removeDigitalVideoDisc(dvd2);
-        System.out.print("Update total cost: ");
-        System.out.println(anOrder.totalCost());
+            // 4. Duyệt danh sách và in ra (Tính Đa hình thể hiện ở đây)
+            System.out.println("\n--- Danh sách Media trong cửa hàng ---");
+            for (Media m : mediae) {
+                // Dù m đang ở kiểu Media, nhưng Java sẽ tự gọi đúng toString() của DVD, Book hoặc CD
+                System.out.println(m.toString());
+            }
+        }
     }
-}
+
