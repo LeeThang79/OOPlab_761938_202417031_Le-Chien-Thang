@@ -37,4 +37,13 @@ public abstract class Media {
     public void setCost(float cost) {
         this.cost = cost;
     }
+
+    public Media() {
+
+    }
+    public Media(String title, String category, float cost) {
+        this.title = title;
+        this.category = category;
+        this.cost = cost;
+    }
 }
