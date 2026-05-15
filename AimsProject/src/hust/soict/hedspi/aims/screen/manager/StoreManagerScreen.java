@@ -2,6 +2,8 @@ package hust.soict.hedspi.aims.screen.manager;
 
 import javax.swing.*;
 import java.awt.*;
+import java.util.ArrayList;
+import hust.soict.hedspi.aims.media.Media;
 import hust.soict.hedspi.aims.store.Store;
 
 
@@ -47,5 +49,18 @@ public class StoreManagerScreen {
         header.add(Box.createRigidArea (new Dimension (10, 10)));
 
         return header;
+    }
+
+    JPanel createCenter() {
+        JPanel center = new JPanel();
+        center.setLayout(new GridLayout (3, 3, 2, 2));
+
+        ArrayList<Media> mediaInStore = store.getItemsInStore();
+        for (int i=0; i<9; i++) {
+            MediaStore cell = new MediaStore (mediaInStore.get(i));
+            center.add(cell);
+        }
+
+        return center;
     }
 }
