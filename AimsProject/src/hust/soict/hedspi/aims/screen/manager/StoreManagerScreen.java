@@ -7,7 +7,7 @@ import hust.soict.hedspi.aims.media.Media;
 import hust.soict.hedspi.aims.store.Store;
 
 
-public class StoreManagerScreen {
+public class StoreManagerScreen extends JFrame {
     private Store store;
 
     JPanel createNorth() {
@@ -62,5 +62,19 @@ public class StoreManagerScreen {
         }
 
         return center;
+    }
+
+    public StoreManagerScreen (Store store) {
+        this.store = store;
+        Container cp = getContentPane();
+        cp.setLayout(new BorderLayout());
+
+        cp.add(createNorth(), BorderLayout.NORTH);
+        cp.add(createCenter(), BorderLayout.CENTER);
+
+        setTitle("Store");
+        setSize(1024, 768);
+        setLocationRelativeTo(null);
+        setVisible(true);
     }
 }
