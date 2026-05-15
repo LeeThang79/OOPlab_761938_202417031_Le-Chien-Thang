@@ -2,6 +2,8 @@ package hust.soict.hedspi.swing;
 
 import javax.swing.*;
 import java.awt.*;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 
 public class NumberGrid extends JFrame {
     private JButton[] btnNumbers = new JButton[10];
@@ -47,5 +49,25 @@ public class NumberGrid extends JFrame {
         btnReset = new JButton("C");
         panelButtons.add(btnReset);
         btnReset.addActionListener(btnListener);
+    }
+
+    private class ButtonListener implements ActionListener {
+        @Override
+        public void actionPerformed(ActionEvent e) {
+            String button = e.getActionCommand();
+            if(button.charAt(0) >= '0' && button.charAt(0) <= '9') {
+                tfDisplay.setText(tfDisplay.getText() + button);
+            }
+            else if (button.equals("DEL")) {
+                String currentText = tfDisplay.getText();
+                if (currentText.length() > 0) {
+                    currentText = currentText.substring(0, currentText.length() - 1);
+                    tfDisplay.setText(currentText);
+                }
+            }
+            else {
+                tfDisplay.setText("");
+            }
+        }
     }
 }
