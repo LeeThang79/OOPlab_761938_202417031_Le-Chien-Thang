@@ -11,6 +11,22 @@ import hust.soict.hedspi.aims.store.Store;
 public class StoreManagerScreen extends JFrame {
     private Store store;
 
+    public static void main(String[] args) {
+        Store testStore = new Store();
+
+        testStore.addMedia(new hust.soict.hedspi.aims.media.DigitalVideoDisc("The Lion King", "Animation", "Roger Allers", 87, 19.95f));
+        testStore.addMedia(new hust.soict.hedspi.aims.media.DigitalVideoDisc("Star Wars", "Science Fiction", "George Lucas", 124, 24.95f));
+        testStore.addMedia(new hust.soict.hedspi.aims.media.DigitalVideoDisc("Aladdin", "Animation", "John Musker", 90, 18.99f));
+        testStore.addMedia(new hust.soict.hedspi.aims.media.DigitalVideoDisc("The Matrix", "Action", "Wachowski", 136, 15.99f));
+        testStore.addMedia(new hust.soict.hedspi.aims.media.DigitalVideoDisc("Titanic", "Romance", "James Cameron", 195, 22.50f));
+        testStore.addMedia(new hust.soict.hedspi.aims.media.DigitalVideoDisc("Avatar", "Sci-Fi", "James Cameron", 162, 25.00f));
+        testStore.addMedia(new hust.soict.hedspi.aims.media.DigitalVideoDisc("Harry Potter", "Fantasy", "Chris Columbus", 152, 20.00f));
+        testStore.addMedia(new hust.soict.hedspi.aims.media.DigitalVideoDisc("Avengers", "Action", "Joss Whedon", 143, 21.00f));
+        testStore.addMedia(new hust.soict.hedspi.aims.media.DigitalVideoDisc("Inception", "Sci-Fi", "Christopher Nolan", 148, 19.00f));
+
+        new StoreManagerScreen(testStore);
+    }
+
     JPanel createNorth() {
         JPanel north = new JPanel();
         north.setLayout(new BoxLayout(north, BoxLayout.Y_AXIS));

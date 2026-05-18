@@ -1,0 +1,11 @@
+1. Top-level containers (Vùng chứa): AWT cho phép thêm thành phần trực tiếp (frame.add()).
+       Swing bắt buộc phải thêm thông qua một lớp trung gian gọi là Content Pane (frame.getContentPane().add())
+
+2. Class name: Các lớp của Swing giống hệt AWT nhưng được thêm tiền tố "J" ở đầu (Ví dụ: Button thành JButton, Panel thành JPanel)
+
+3. Event-handling (Xử lý sự kiện): Cả hai dùng chung thư viện sự kiện cơ bản (java.awt.event.*).
+        Nhưng Swing có thêm bộ xử lý riêng cho các thành phần phức tạp (javax.swing.event.*)
+        và yêu cầu chạy trên luồng xử lý riêng (EDT)
+
+4. Appearances: AWT mượn giao diện của hệ điều hành.
+        Swing tự vẽ giao diện bằng Java nên hiển thị đồng nhất trên mọi máy và cho phép đổi theme tùy ý
