@@ -4,6 +4,7 @@ import hust.soict.hedspi.aims.media.Media;
 import hust.soict.hedspi.aims.media.Playable;
 import javax.swing.*;
 import java.awt.*;
+import java.awt.event.*;
 
 public class MediaStore extends JPanel {
     private Media media;
@@ -24,6 +25,22 @@ public class MediaStore extends JPanel {
 
         if (media instanceof Playable) {
             JButton playButton = new JButton("Play");
+            playButton.addActionListener(new ActionListener() {
+                @Override
+                public void actionPerformed(ActionEvent e) {
+                    JDialog dialog = new JDialog();
+                    dialog.setTitle("Playing Media");
+                    dialog.setSize(300, 200);
+                    dialog.setLayout(new FlowLayout());
+                    dialog.setLocationRelativeTo(null);
+
+                    JLabel label = new JLabel("Now playing: " + media.getTitle());
+                    dialog.add(label);
+
+                    dialog.setVisible(true);
+                }
+            });
+
             container.add(playButton);
         }
 
