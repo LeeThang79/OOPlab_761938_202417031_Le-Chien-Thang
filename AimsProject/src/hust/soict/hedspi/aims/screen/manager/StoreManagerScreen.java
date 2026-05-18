@@ -2,6 +2,7 @@ package hust.soict.hedspi.aims.screen.manager;
 
 import javax.swing.*;
 import java.awt.*;
+import java.awt.event.*;
 import java.util.ArrayList;
 import hust.soict.hedspi.aims.media.Media;
 import hust.soict.hedspi.aims.store.Store;
@@ -20,16 +21,46 @@ public class StoreManagerScreen extends JFrame {
 
     JMenuBar createMenuBar() {
         JMenu menu = new JMenu("Options");
-        menu.add(new JMenuItem("View store"));
+        JMenuItem viewStoreMenu = new JMenuItem("View store");
+        menu.add(viewStoreMenu);
 
-        JMenu smUpdateStore = new JMenu ("Update Store");
-        smUpdateStore.add(new JMenuItem("Add Book"));
-        smUpdateStore.add(new JMenuItem("Add CD"));
-        smUpdateStore.add(new JMenuItem("Add DVD"));
+        JMenu smUpdateStore = new JMenu("Update Store");
+
+        JMenuItem addBookMenu = new JMenuItem("Add Book");
+        JMenuItem addCdMenu = new JMenuItem("Add CD");
+        JMenuItem addDvdMenu = new JMenuItem("Add DVD");
+
+        smUpdateStore.add(addBookMenu);
+        smUpdateStore.add(addCdMenu);
+        smUpdateStore.add(addDvdMenu);
         menu.add(smUpdateStore);
 
+        addBookMenu.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                dispose();
+                new AddBookToStoreScreen(store);
+            }
+        });
+
+        addCdMenu.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                dispose();
+                new AddCompactDiscToStoreScreen(store);
+            }
+        });
+
+        addDvdMenu.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                dispose();
+                new AddDVDToStoreScreen(store);
+            }
+        });
+
         JMenuBar menuBar = new JMenuBar();
-        menuBar.setLayout(new FlowLayout (FlowLayout.LEFT));
+        menuBar.setLayout(new FlowLayout(FlowLayout.LEFT));
         menuBar.add(menu);
 
         return menuBar;
