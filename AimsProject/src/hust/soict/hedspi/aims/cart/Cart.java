@@ -1,13 +1,16 @@
 package hust.soict.hedspi.aims.cart;
 
 import hust.soict.hedspi.aims.media.Media;
-import java.util.ArrayList;
+import javafx.collections.*;
 
 public class Cart {
-    private ArrayList<Media> itemsOrdered;
+    private ObservableList<Media> itemsOrdered = FXCollections.observableArrayList();
 
     public Cart() {
-        this.itemsOrdered = new ArrayList<Media>();
+    }
+
+    public ObservableList<Media> getItemsOrdered() {
+        return itemsOrdered;
     }
 
     public void addMedia(Media mediaName) {
@@ -22,9 +25,9 @@ public class Cart {
     public void removeMedia(Media mediaName) {
         if (itemsOrdered.contains(mediaName)) {
             itemsOrdered.remove(mediaName);
-            System.out.println("Removed " + mediaName.getTitle() + " from the Cart.");
+            System.out.println(mediaName.getTitle() + " has been removed from the cart.");
         } else {
-            System.out.println("Couldn't find " + mediaName.getTitle() + " in the Cart. Can't be removed.");
+            System.out.println("Media not found in cart.");
         }
     }
 
