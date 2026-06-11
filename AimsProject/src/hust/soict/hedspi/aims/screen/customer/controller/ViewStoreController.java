@@ -6,8 +6,10 @@ import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.geometry.Insets;
+import javafx.scene.*;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.GridPane;
+import javafx.stage.Stage;
 
 import java.io.IOException;
 
@@ -27,8 +29,25 @@ public class ViewStoreController {
 
     @FXML
     void btnViewCartPressed(ActionEvent event) {
-        // Logic chuyển sang màn hình Cart
-        System.out.println("View Cart pressed");
+        try {
+            // Nạp file giao diện Cart.fxml
+            final String CART_FXML_FILE_PATH = "/hust/soict/hedspi/aims/screen/customer/view/Cart.fxml";
+            FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource(CART_FXML_FILE_PATH));
+
+            // Thiết lập controller và truyền store, cart sang
+            fxmlLoader.setController(new CartController(store, cart));
+            Parent root = fxmlLoader.load();
+
+            // Lấy Stage hiện tại
+            Stage stage = (Stage)((Node) event.getSource()).getScene().getWindow();
+
+            // Chuyển Scene
+            stage.setScene(new Scene(root));
+            stage.setTitle("Cart");
+            stage.show();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
     }
 
     @FXML

@@ -6,6 +6,7 @@ import hust.soict.hedspi.aims.media.Playable;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.geometry.Insets;
+import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.layout.HBox;
@@ -28,6 +29,16 @@ public class ItemController {
 
     @FXML
     void btnAddToCartClicked(ActionEvent event) {
+        if (cart != null && media != null) {
+            cart.addMedia(media); // Gọi hàm thêm của Giỏ hàng
+
+            // Hiện thông báo popup nhỏ xác nhận cho người dùng
+            Alert alert = new Alert(Alert.AlertType.INFORMATION);
+            alert.setTitle("Cart Notification");
+            alert.setHeaderText("Success");
+            alert.setContentText(media.getTitle() + " has been added to your cart!");
+            alert.showAndWait();
+        }
     }
 
     @FXML
