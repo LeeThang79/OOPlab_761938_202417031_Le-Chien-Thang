@@ -3,6 +3,7 @@ package hust.soict.hedspi.aims.media;
 import hust.soict.hedspi.aims.exception.PlayerException;
 
 import java.util.ArrayList;
+import java.util.Iterator;
 
 public class CompactDisc extends Disc implements Playable {
     private String artist;
@@ -50,8 +51,17 @@ public class CompactDisc extends Disc implements Playable {
             // Nếu đĩa xịn, thời lượng lớn hơn 0 thì cho phát
             System.out.println("Playing CD: " + this.getTitle());
             System.out.println("CD length: " + this.getLength());
-            for (Track track : tracks) {
-                track.play();
+            Iterator iter = tracks.iterator();
+            Track nextTrack;
+            while(iter.hasNext()) {
+                nextTrack = (Track) iter.next();
+                try {
+                    // Cố gắng phát từng bài hát
+                    nextTrack.play();
+                } catch(PlayerException e) {
+                    // Nếu gặp bài hát bị lỗi, bắt lấy lỗi đó và ném ngược ra ngoài để giao diện xử lý
+                    throw e;
+                }
             }
         } else {
             // Nếu đĩa hỏng (thời lượng <= 0), ném ra "quả bom" PlayerException

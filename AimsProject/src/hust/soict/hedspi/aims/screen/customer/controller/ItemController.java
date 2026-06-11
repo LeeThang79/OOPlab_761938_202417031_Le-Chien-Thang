@@ -1,6 +1,7 @@
 package hust.soict.hedspi.aims.screen.customer.controller;
 
 import hust.soict.hedspi.aims.cart.Cart;
+import hust.soict.hedspi.aims.exception.LimitExceededException;
 import hust.soict.hedspi.aims.media.Media;
 import hust.soict.hedspi.aims.media.Playable;
 import javafx.event.ActionEvent;
@@ -30,14 +31,25 @@ public class ItemController {
     @FXML
     void btnAddToCartClicked(ActionEvent event) {
         if (cart != null && media != null) {
-            cart.addMedia(media); // Gọi hàm thêm của Giỏ hàng
+            try {
+                // Thử thêm sản phẩm vào giỏ
+                cart.addMedia(media);
 
-            // Hiện thông báo popup nhỏ xác nhận cho người dùng
-            Alert alert = new Alert(Alert.AlertType.INFORMATION);
-            alert.setTitle("Cart Notification");
-            alert.setHeaderText("Success");
-            alert.setContentText(media.getTitle() + " has been added to your cart!");
-            alert.showAndWait();
+                // Nếu thành công, hiện popup báo đã thêm
+                Alert alert = new Alert(Alert.AlertType.INFORMATION);
+                alert.setTitle("Cart Notification");
+                alert.setHeaderText("Success");
+                alert.setContentText(media.getTitle() + " has been added to your cart!");
+                alert.showAndWait();
+
+            } catch (LimitExceededException e) {
+                // Nếu bắt được lỗi giỏ hàng đầy, hiện cảnh báo ĐỎ!
+                Alert alert = new Alert(Alert.AlertType.ERROR);
+                alert.setTitle("Cart Error");
+                alert.setHeaderText("Cannot add media");
+                alert.setContentText(e.getMessage()); // Sẽ hiện dòng chữ "ERROR: The number of media..."
+                alert.showAndWait();
+            }
         }
     }
 
