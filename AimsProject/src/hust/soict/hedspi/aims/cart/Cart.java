@@ -1,10 +1,12 @@
 package hust.soict.hedspi.aims.cart;
 
+import hust.soict.hedspi.aims.exception.LimitExceededException;
 import hust.soict.hedspi.aims.media.Media;
 import javafx.collections.*;
 
 public class Cart {
     private ObservableList<Media> itemsOrdered = FXCollections.observableArrayList();
+    public static final int MAX_NUMBERS_ORDERED = 20;
 
     public Cart() {
     }
@@ -13,12 +15,18 @@ public class Cart {
         return itemsOrdered;
     }
 
-    public void addMedia(Media mediaName) {
-        if (!itemsOrdered.contains(mediaName)) {
-            itemsOrdered.add(mediaName);
-            System.out.println("Added " + mediaName.getTitle() + " to the Cart.");
+    public void addMedia(Media mediaName) throws LimitExceededException{
+        // Kiểm tra xem số lượng đã vượt quá giới hạn chưa
+        if (itemsOrdered.size() < MAX_NUMBERS_ORDERED) {
+            if (!itemsOrdered.contains(mediaName)) {
+                itemsOrdered.add(mediaName);
+                System.out.println("Added " + mediaName.getTitle() + " to the Cart.");
+            } else {
+                System.out.println(mediaName.getTitle() + " is already in the Cart.");
+            }
         } else {
-            System.out.println(mediaName.getTitle() + " has already been in the Cart. Can't be added.");
+            // Nếu giỏ hàng đã đạt giới hạn, ném ra ngoại lệ
+            throw new LimitExceededException("ERROR: The number of media has reached its limit");
         }
     }
 
