@@ -1,8 +1,11 @@
 package hust.soict.hedspi.aims;
 
 import hust.soict.hedspi.aims.cart.Cart;
+import hust.soict.hedspi.aims.exception.PlayerException;
 import hust.soict.hedspi.aims.store.Store;
 import hust.soict.hedspi.aims.media.*;
+
+import javax.swing.*;
 import java.util.Scanner;
 
 public class Aims {
@@ -83,12 +86,38 @@ public class Aims {
             mediaDetailsMenu();
             int choice = scanner.nextInt();
             scanner.nextLine();
+
             if (choice == 1) {
-                cart.addMedia(media);
-                System.out.println("Added");
+                // Bọc try-catch cho lệnh addMedia (nếu bạn đã làm Phần 9)
+                try {
+                    cart.addMedia(media);
+                    System.out.println("Added to cart successfully.");
+                } catch (Exception e) { // Hoặc catch (LimitExceededException e)
+                    System.err.println(e.getMessage());
+                    JOptionPane.showMessageDialog(null, e.getMessage(), "Cart Error", JOptionPane.WARNING_MESSAGE);
+                }
+
             } else if (choice == 2 && media instanceof Playable) {
-                ((Playable) media).play();
-            } else if (choice == 0) break;
+                // ÁP DỤNG PHẦN 11: Bọc try-catch cho lệnh play()
+                try {
+                    ((Playable) media).play();
+                } catch (PlayerException e) {
+                    // 1. In thông tin lỗi ra console
+                    System.err.println(e.toString());
+                    e.printStackTrace();
+
+                    // 2. Hiển thị hộp thoại báo lỗi Swing
+                    JOptionPane.showMessageDialog(
+                            null,
+                            e.getMessage(),
+                            "Illegal Media Length",
+                            JOptionPane.ERROR_MESSAGE
+                    );
+                }
+
+            } else if (choice == 0) {
+                break;
+            }
         }
     }
 
