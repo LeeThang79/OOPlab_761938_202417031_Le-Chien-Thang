@@ -1,0 +1,20 @@
+1. Dòng 65-68: Nạp file FXML
+Ý nghĩa: Đoạn code FXMLLoader.load(...) sẽ đọc file thiết kế Cart.fxml của bạn, sau đó biên dịch toàn bộ các nút bấm,
+    màu sắc, bố cục trong file đó thành một đối tượng Java (gọi là Parent root).
+
+2. Dòng 69: Tìm lại cái "Sân khấu" hiện tại (Quan trọng nhất)
+Ý nghĩa: Stage stage = (Stage)((Node) event.getSource()).getScene().getWindow();.
+    Mục đích của nó là đi tìm cái cửa sổ (Stage) đang mở để nhét giao diện mới vào. Trình tự tìm kiếm của nó như sau:
+        + event: Khi bạn click chuột, một sự kiện (event) được sinh ra.
+        + getSource(): Nó hỏi xem sự kiện này phát ra từ đâu? (Trả lời: Từ cái nút "View Cart").
+        + (Node): Ép kiểu cái nút đó thành một "Đạo cụ" chung chung.
+        + .getScene(): Từ cái nút đó, nó hỏi tiếp: "Nút này đang nằm trong cảnh diễn (Scene) nào?".
+        + .getWindow(): Cuối cùng nó hỏi: "Cái cảnh diễn đó đang được chiếu trên cái sân khấu (cửa sổ) nào?". Và ép kiểu nó về Stage.
+
+Tại sao phải nhiều bước như vậy? Vì nếu bạn tạo ra một cái new Stage(), nó sẽ mở ra một cửa sổ popup mới tinh.
+    Làm theo cách này, bạn bắt được đúng cái cửa sổ cũ để thay giao diện, ứng dụng của bạn sẽ chỉ dùng chung 1 cửa sổ duy nhất.
+
+3. Dòng 70-72: Chuyển cảnh
+Ý nghĩa: Đoạn code stage.setScene(new Scene(root));
+Sau khi đã có "Cảnh mới" (ở bước 1) và tìm được "Sân khấu cũ" (ở bước 2).
+Bước 3 chỉ đơn giản là ném cảnh mới lên sân khấu cũ và dán lại tên tiêu đề cửa sổ (stage.setTitle("Cart")).
