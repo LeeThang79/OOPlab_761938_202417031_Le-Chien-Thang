@@ -2,7 +2,7 @@ package hust.soict.hedspi.aims.media;
 
 import java.util.Comparator;
 
-public abstract class Media {
+public abstract class Media implements Comparator<Media> {
     private int id;
     private String title;
     private String category;
@@ -61,16 +61,38 @@ public abstract class Media {
 
     @Override
     public boolean equals(Object obj) {
-        if (obj == this) {
+        // Nếu cùng trỏ đến 1 vùng nhớ -> chắc chắn giống nhau
+        if (this == obj) {
             return true;
         }
-
+        // Kiểm tra an toàn: Nếu obj bị null hoặc không phải là Media -> loại luôn, tránh lỗi ClassCastException
         if (!(obj instanceof Media)) {
             return false;
         }
 
-        Media media = (Media) obj;
+        // Ép kiểu an toàn về Media
+        Media other = (Media) obj;
 
-        return this.getTitle() != null && this.getTitle().equals(media.getTitle());
+        // So sánh 2 tiêu chí: Title và Cost
+        boolean isTitleEqual = (this.getTitle() != null && this.getTitle().equals(other.getTitle()));
+        boolean isCostEqual = (this.getCost() == other.getCost());
+
+        return isTitleEqual && isCostEqual;
+    }
+
+    public int compareTo(Media other) {
+        // Chặn lỗi NullPointerException
+        if (other == null) {
+            throw new NullPointerException("ERROR: Cannot compare with a null object.");
+        }
+
+        // 1. So sánh theo Title (Xếp theo bảng chữ cái ABC)
+        int titleComparison = this.getTitle().compareToIgnoreCase(other.getTitle());
+        if (titleComparison != 0) {
+            return titleComparison; // Nếu title khác nhau thì trả về kết quả luôn
+        }
+
+        // 2. Nếu Title giống hệt nhau, thì so sánh theo Cost (Giá)
+        return Float.compare(this.getCost(), other.getCost());
     }
 }
